@@ -1,0 +1,14 @@
+<h1>Evaluations</h1>
+<ul>
+	<li ng-repeat="evaluation in evaluations">
+		<a ng-href="#/evaluation/{{ evaluation.ID }}">{{ evaluation.TitleIS }}</a>
+	</li>
+</ul>
+<div ng-show="admin">
+	<button ng-click="newEval()">New evaluation</button>
+	<ul>
+		<li ng-repeat="template in templates">
+			<a ng-href="#/template/{{ template.ID }}">{{ template.TitleIS }}</a>
+		</li>
+	</ul>
+</div>
