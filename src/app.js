@@ -14,7 +14,7 @@ app.config(function($routeProvider) {
 		templateUrl: "templates/template.html",
 		controller: "TemplateController"
 	}).when("/evaluation/:evaluationID", {
-		templateUrl: "templates/evaluation.html",
+		templateUrl: "templates/answerEval.html",
 		controller: "EvaluationController"
 	}).when("/evaluation/", {
 		templateUrl: "templates/evaluation.html",
