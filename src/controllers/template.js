@@ -80,7 +80,6 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 			}
 		}
 		else{
-			alert('redirecting');
 			$location.path("/");
 		}
 
