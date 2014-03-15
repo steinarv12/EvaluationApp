@@ -9,6 +9,7 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 				$http.get('http://localhost:19358/api/v1/evaluationtemplates').then(function(respond) {
 					$scope.view = true;
 					$scope.templates = respond.data;
+					//$scope.$apply();
 				});
 			}
 			else if($routeParams.templateID === "new"){
@@ -34,8 +35,6 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 
 			$scope.addAnswer = function(question) {
 				question.Answers.push("New answer");
-				$scope.$apply;
-				//todo: BINDA VId ANSWER!
 			}
 
 			$scope.addCourseQuestion = function() {
@@ -50,12 +49,13 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 			}
 
 			$scope.submitTemplate = function() {
-				console.log("the template submitting: ");
+				console.log("the template submitted:");
 				console.log($scope.evaluation);
 				$http.post('http://localhost:19358/api/v1/evaluationtemplates', $scope.evaluation).then(function(respond) {
 					if(respond.status === 204)
 					{
 						console.log("Template was Created TODO:message");
+						console.log(respond);
 						$location.path("/templates");
 					}
 					else {

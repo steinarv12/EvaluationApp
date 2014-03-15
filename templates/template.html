@@ -45,7 +45,7 @@
 			<p>Svarmöguleikar:</p>
 			<ul ng-show="new">
 				<li ng-repeat="answer in question.Answers track by $index">
-					<input ng-model="answer" ng-show="new"/>
+					<input ng-model="question.Answers[$index]" ng-show="new"/>
 				</li>
 			</ul>
 
@@ -84,7 +84,7 @@
 			<p>Svarmöguleikar:</p>
 			<ul ng-show="new">
 				<li ng-repeat="answer in question.Answers track by $index">
-					<input ng-model="answer" />
+					<input ng-model="question.Answers[$index]" />
 				</li>
 			</ul>
 			
