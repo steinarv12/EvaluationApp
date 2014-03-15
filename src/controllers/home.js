@@ -13,9 +13,7 @@ app.controller("HomeController", ["$scope", "ApiFactory", "$http", "$window", "$
 				console.log("Update: " + updateMessage);
 			});*/
 
-			$scope.newEval = function() {
-				$location.path("/evaluation");
-			}
+
 
 		}
 		else{

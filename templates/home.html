@@ -4,11 +4,13 @@
 		<a ng-href="#/evaluation/{{ evaluation.ID }}">{{ evaluation.TitleIS }}</a>
 	</li>
 </ul>
-<div ng-show="admin">
-	<button ng-click="newEval()">New evaluation</button>
+
+
+<div id="navBar" ng-show="admin">
 	<ul>
-		<li ng-repeat="template in templates">
-			<a ng-href="#/template/{{ template.ID }}">{{ template.TitleIS }}</a>
-		</li>
+		<li><a ng-href="#/templates">Go To Templates</a></li>
+		<li><a ng-href="#/templates">Go To Templates</a></li>
+		<li><a ng-href="#/templates">Go To Templates</a></li>
+		<li><a ng-href="#/templates">Go To Templates</a></li>
 	</ul>
 </div>

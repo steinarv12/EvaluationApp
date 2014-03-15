@@ -1,0 +1,9 @@
+<div>
+<h4>Old templates</h4>
+	<ul>
+		<li ng-repeat="template in templates">
+			<a ng-href="#/template/{{ template.ID }}">{{ template.TitleIS }}</a>
+		</li>
+	</ul>
+	<button ng-click="newTemplate()">New Template</button>
+</div>

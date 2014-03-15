@@ -7,6 +7,12 @@ app.config(function($routeProvider) {
 	}).when("/home", {
 		templateUrl: "templates/home.html",
 		controller: "HomeController"
+	}).when("/templates", {
+		templateUrl: "templates/template.html",
+		controller: "TemplateController"
+	}).when("/templates/:templateID", {
+		templateUrl: "templates/template.html",
+		controller: "TemplateController"
 	}).when("/evaluation/:evaluationID", {
 		templateUrl: "templates/evaluation.html",
 		controller: "EvaluationController"

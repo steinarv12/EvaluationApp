@@ -6,11 +6,7 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 			var admin = false;
 
 			if(evaluationID !== undefined) {
-				/*ApiFactory.getEvaluationById(evaluationID).then(function(data) {
-					$scope.evaluation = data;
-				}, function(errorMessage) {
-					console.log("Error fetching evaluation: " + errorMessage);
-				});*/
+
 			}
 			else {
 				$scope.evaluation = {
@@ -37,9 +33,19 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 					Answers: []
 				});
 			}
+
+			$scope.submitEvaluation = function() {
+				$http.post('http://localhost:19358/api/v1/evaluationtemplates', $scope.evaluation).then(function(respond) {
+					if(respond.status === 200)
+					{
+						alert("Template-ið er tilbúið");
+						$location.path("/");
+					}
+				});
+			}
+			
+
 		}
-		else{
+		else
 			$location.path("/");
-		}
-	}
-])
+	}]);
