@@ -1,0 +1,72 @@
+<h1>{{ evaluation.TitleIS }}</h1>
+<span>{{ evaluation.IntroTextIS }}</span>
+
+<div>
+	<h2>Spurningar úr námskeiði</h2>
+	<div ng-repeat="question in evaluation.CourseQuestions">
+		<div ng-show="question.Type == 'multiple'">
+			<p>Svarmöguleikar:</p>
+			<ul>
+				<li ng-repeat="answer in question.Answers track by $index">
+					<form action="">
+					<input type="checkbox" name="answer" value="$index">{{ answer }}<br>
+					</form>
+				</li>
+			</ul>
+		</div>
+		<div ng-show="question.Type == 'single'">
+			<p>Svarmöguleikar:</p>
+			<ul>
+				<li ng-repeat="answer in question.Answers track by $index">
+					<form action="">
+					<input type="radio" name="answer" value="$index">{{ answer }}<br>
+					</form>
+				</li>
+			</ul>
+		</div>
+		<div ng-show="question.Type == 'text'">
+			<p>Svarmöguleikar:</p>
+			<ul>
+				<li ng-repeat="answer in question.Answers track by $index">
+					<form action="">
+					<input type="text" name="answer" ng-model="answer">
+					</form>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<h2>Spurningar um kennara</h2>
+	<div ng-repeat="question in evaluation.CourseQuestions">
+		<div ng-show="question.Type == 'multiple'">
+			<p>Svarmöguleikar:</p>
+			<ul>
+				<li ng-repeat="answer in question.Answers track by $index">
+					<form action="">
+					<input type="checkbox" name="answer" value="$index">{{ answer }}<br>
+					</form>
+				</li>
+			</ul>
+		</div>
+		<div ng-show="question.Type == 'single'">
+			<p>Svarmöguleikar:</p>
+			<ul>
+				<li ng-repeat="answer in question.Answers track by $index">
+					<form action="">
+					<input type="radio" name="answer" value="$index">{{ answer }}<br>
+					</form>
+				</li>
+			</ul>
+		</div>
+		<div ng-show="question.Type == 'text'">
+			<p>Svarmöguleikar:</p>
+			<ul>
+				<li ng-repeat="answer in question.Answers track by $index">
+					<form action="">
+					<input type="text" name="answer" ng-model="answer">
+					</form>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<button ng-click="TurnIn()">Skila mati</button>
