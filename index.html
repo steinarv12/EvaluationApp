@@ -12,12 +12,13 @@
 		<script src="src/controllers/evaluation.js"></script>
 		<script src="src/controllers/login.js"></script>
 		<script src="src/controllers/template.js"></script>
+		<script src="src/controllers/index.js"></script>
 		<script src="src/services/api.js"></script>
 		<script src="src/services/UserFactory.js"></script>
 	</head>
 	<body>
 		<div class="navbar navbar-default">
-			<div class="container">
+			<div class="container" ng-controller="indexCtrl">
 				<div class="navbar-header">
 					<a href="../" class="navbar-brand">RU Evaluation</a>
 					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -31,11 +32,23 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#">Íslenska</a></li>
 						<li><a href="#">English</a></li>
+						<li><a href="/" ng-click"logout()">Útskrá</a></li>
 					</ul>
 
 				</div>
-			</div>
+				<span class="name">Velkomin/n {{ uFactory.FullName }}</span>
+				<span class="time">
+			      <span class="hours">
+			        {{date.getHours() | pad}}
+			      </span>:<span class="minutes">
+			        {{date.getMinutes() | pad}}
+			      </span>:<span class="seconds">
+			        {{date.getSeconds() | pad}}
+			      </span>
+			    </span>
+			</div>	    
 		</div>
+
 		<div class="container" ng-view>
 		</div>
 

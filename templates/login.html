@@ -1,8 +1,8 @@
 <div class="dasModel">
 	<p>Login:</p>
-	<input class="uName" ng-model="userName" placeholder="Username">
-	<input class="uName" ng-model="passWord" ng-keypress="keyPress($event)" placeholder="Password">
-	<button class="btn btn-default" ng-click="logIn($event)">Connect</button>
+	<input class="uName" ng-model="userName" placeholder="Username" autofocus>
+	<input class="uName" ng-model="passWord" type="password" ng-keypress="keyPress($event)" placeholder="Password">
+	<button class="btn btn-default" ng-click="logIn()">Connect</button>
 	<p ng-bind="message"></p>
 </div>
 

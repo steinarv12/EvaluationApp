@@ -5820,3 +5820,7 @@ button.close {
   font-size: 20px;
   float: left;
 }
+
+.time {
+  float: right;
+}

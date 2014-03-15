@@ -2,25 +2,18 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 	function($scope, UserFactory, $routeParams, $window, $location) {
 		if($window.sessionStorage.token !== undefined) {
 			$scope.admin = UserFactory.isAdmin();
-			var evaluationID = $routeParams.evaluationID;
-			var admin = false;
-
-			if(evaluationID !== undefined) {
-
-			}
-			else {
-				$scope.evaluation = {
-					TitleIS: "",
-					TitleEN: "",
-					IntroTextIS: "",
-					IntroTextEN: "",
-					CourseQuestions: [],
-					TeacherQuestions: []
-				};
-			}
+			$scope.evaluation = {
+				TitleIS: "",
+				TitleEN: "",
+				IntroTextIS: "",
+				IntroTextEN: "",
+				CourseQuestions: [],
+				TeacherQuestions: []
+			};
 
 			$scope.addAnswer = function(question) {
 				question.Answers.push("New answer");
+				console.log(question);
 			}
 
 			$scope.addCourseQuestion = function() {
@@ -43,8 +36,17 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 					}
 				});
 			}
-			
 
+			$scope.addTeacherQuestion = function() {
+				$scope.evaluation.TeacherQuestions.push({
+					ID: $scope.evaluation.TeacherQuestions.length,
+					TextIS: "",
+					TextEN: "",
+					ImageURL: "",
+					Type: "single",
+					Answers: []
+				});
+			}
 		}
 		else
 			$location.path("/");
