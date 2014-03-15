@@ -2,9 +2,6 @@ app.controller("indexCtrl", ["$scope", "UserFactory", "$timeout",
 	function($scope, UserFactory, $timeout) {
 		$scope.uFactory = UserFactory;
 		$scope.name = UserFactory.FullName;
-		console.log("index.js");
-		console.log($scope.uFactory);
-		console.log("Nafn: " + $scope.name);
 		$scope.date = new Date();
 		$scope.majors = new Array(12);
 		$scope.minors = new Array(60);
@@ -17,7 +14,7 @@ app.controller("indexCtrl", ["$scope", "UserFactory", "$timeout",
 		$timeout(tick, 1000);
 
 		$scope.logout = function() {
-			alert("sure?");
+			alert("Are you sure?");
 		}
 	}
 ])
