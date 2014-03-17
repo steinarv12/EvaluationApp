@@ -3,25 +3,38 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 		$scope.admin = UserFactory.isAdmin();
 		$scope.view = true;
 		$scope.new = false;
+		$scope.templShow = [];
+		$scope.evaluations = [];
+		$scope.dates = [];
+		$scope.hideBool = false;
 		if($window.sessionStorage.token !== undefined) {
 			
 			if($routeParams.templateID === undefined) {
 				$http.get('http://localhost:19358/api/v1/evaluationtemplates').then(function(respond) {
 					$scope.view = true;
 					$scope.templates = respond.data;
-					//$scope.$apply();
+					for (var i = $scope.templates.length - 1; i >= 0; i--) {
+						$scope.templShow[i] = true;
+						$scope.dates[i] = {
+							startDate: "",
+							startTime: "",
+							endDate: "",
+							endTime: ""
+						}
+
+					};
 				});
 			}
 			else if($routeParams.templateID === "new"){
 				$scope.view = false;
 				$scope.new = true;
 				$scope.evaluation = {
-				TitleIS: "",
-				TitleEN: "",
-				IntroTextIS: "",
-				IntroTextEN: "",
-				CourseQuestions: [],
-				TeacherQuestions: []
+					TitleIS: "",
+					TitleEN: "",
+					IntroTextIS: "",
+					IntroTextEN: "",
+					CourseQuestions: [],
+					TeacherQuestions: []
 				};
 			}
 			else {
@@ -34,7 +47,15 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 			}
 
 			$scope.addAnswer = function(question) {
-				question.Answers.push("New answer");
+				var answerObj = {
+							ID: 1,
+							TextIS: "Svar",
+							TextEN: "Answer",
+							ImageURL: "",
+							Weight: 0
+						}
+				question.Answers.push(answerObj);
+
 			}
 
 			$scope.addCourseQuestion = function() {
@@ -57,6 +78,29 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 						console.log("Template was Created TODO:message");
 						console.log(respond);
 						$location.path("/templates");
+					}
+					else {
+						alert("ERROR: " + respond.status);
+					}
+				});
+			}
+
+			$scope.submitForm = function(id, index) {
+				console.log(id + " " + index);
+				var start = $scope.dates[index].startDate + " " + $scope.dates[index].startTime;
+				var end = $scope.dates[index].endDate + " " + $scope.dates[index].endTime;
+				var eval = {
+					TemplateID: id,
+					StartDate: start,
+					EndDate: end
+				}
+				console.log(eval);
+				$http.post('http://localhost:19358/api/v1/evaluations', eval).then(function(respond) {
+					if(respond.status === 204)
+					{
+						console.log("Evaluation was Created");
+						console.log(respond);
+						$scope.hideBool = false;
 					}
 					else {
 						alert("ERROR: " + respond.status);
