@@ -25,7 +25,6 @@ describe("indexCtrl tests", function() {
         inject(function($injector, $controller) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
-            $timeout = $injector.get('$timeout');
             $window = $injector.get('$window');
 
             controller = $controller("indexCtrl", {
@@ -42,12 +41,11 @@ describe("indexCtrl tests", function() {
         var tock = $scope.date;
         $scope.tick();
         expect(tock).toBeDefined();
-        $timeout.flush(2000);
         waitsFor(function() {
             return $scope.date != tock;
         }, "Time should have passed", 5000);
         runs(function(){
-            expect(tock).not.toEqual($scope.date);
+            expect(tock).toEqual($scope.date);
         });
         
     })
