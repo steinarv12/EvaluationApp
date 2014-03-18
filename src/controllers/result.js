@@ -35,8 +35,12 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 				var answers = 0;
 				$http.get('http://localhost:19358/api/v1/evaluations/' + $routeParams.resultID).then(function(respond) {
 					$scope.evalAns = respond.data;
+					console.log("The result of evaluation: ");
 					console.log(respond.data);
+					console.log("The question object: ");
+					console.log($scope.evalAns.Questions);
 					if($scope.evalAns.Questions !== undefined) {
+						$scope.noResult = false;
 						$scope.showTextQuestions = [];
 						for(var i = 0; i < $scope.evalAns.Questions.length; i++) {
 									$scope.showTextQuestions[i] = false;

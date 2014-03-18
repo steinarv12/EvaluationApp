@@ -119,7 +119,7 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 				$http.post('http://localhost:19358/api/v1/evaluations', eval).then(function(respond) {
 					if(respond.status === 204)
 					{
-						console.log("Evaluation was Created");
+						alert("Evaluation was Posted");
 						console.log(respond);
 						$scope.hideBool = false;
 					}

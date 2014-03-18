@@ -38,12 +38,23 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 			
 			$scope.TurnIn = function(){
 				var answers = [];
+				var temparr = [];
 				for (var i = $scope.CourseAnswers.length - 1; i >= 0; i--) {
+					/*if($scope.CourseAnswers[i].Value instanceof Array) {
+						temparr = $scope.CourseAnswers[i].Value;
+						for(var i = 0; i < $scope.CourseAnswers[i].Value.length; i++) {
+
+						}
+					}
+					else {
+
+					}*/
 					answers.push($scope.CourseAnswers[i]);
 				};
 				for (var i = $scope.TeacherAnswers.length - 1; i >= 0; i--) {
 					answers.push($scope.TeacherAnswers[i]);
 				};
+					console.log(answers);
 					$http.post('http://localhost:19358/api/v1/courses/T-427-WEPO/20141/evaluations/' + $routeParams.evaluationID, answers).then(function(respond) {
 						if(respond.status === 204) {
 							$location.path("/home")
