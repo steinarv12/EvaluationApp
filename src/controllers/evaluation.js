@@ -62,6 +62,16 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 					
 				});
 			});
+
+			$scope.back = function() {
+				if($routeParams.evaluationID === undefined){
+					$location.path("/template");
+				}
+				else{
+					$location.path("/home");
+				}
+			
+			}
 			
 			$scope.TurnIn = function(){
 				var answers = [];
@@ -79,7 +89,6 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 								});
 							}
 						}
-
 					}
 					else {
 						answers.push($scope.CourseAnswers[i]);

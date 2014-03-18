@@ -47,14 +47,10 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 
 					if($scope.evalAns.Questions !== undefined) {
 						$scope.noResult = false;
-						$scope.showTextQuestions = [];
+						$scope.showTextQuestion = [];
 						for(var i = 0; i < $scope.evalAns.Questions.length; i++) {
-							$scope.showTextQuestions[i] = false;
+							$scope.showTextQuestion[i] = false;
 						}
-
-						console.log($scope.evalAns);
-						console.log($scope.evalAns.Questions);
-						console.log($scope.evalTemp);
 					}
 					else{
 						$scope.noResult = true;
@@ -62,10 +58,17 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 					
 				});
 			}
+			$scope.back = function() {
+				if($routeParams.resultID === undefined){
+					$location.path("/home");
+				}
+				else{
+					$location.path("/result");
+				}
+			
+			}
 		}
 		else {
-			
-			alert("rdrctg u!");
 			$location.path("/");
 		}
 
