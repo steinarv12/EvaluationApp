@@ -33,7 +33,7 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 				
 				$scope.view = false;
 				var answers = 0;
-				$http.get('http://localhost:19358/api/v1/evaluations/' + $routeParams.resultID).then(function(respond) {
+				$http.get('http://localhost:19358/api/v1/courses/T-427-WEPO/20141/evaluations/' + $routeParams.resultID).then(function(respond) {
 					$scope.evalAns = respond.data;
 					console.log(respond.data);
 					if($scope.evalAns.Questions !== undefined) {
