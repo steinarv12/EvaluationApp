@@ -16,7 +16,7 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 					$scope.questions.push($scope.evaluation.CourseQuestions[i]);
 					$scope.questions[i].qType = "Course";
 				};
-
+					
 				for (var i = 0; i < $scope.evaluation.CourseQuestions.length; i++) {
 					$scope.CourseAnswers[i] = {
 						QuestionID: $scope.evaluation.CourseQuestions[i].ID,
@@ -25,75 +25,85 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 						Value: []
 					};
 				};
-				console.log("utan techers");
+				
 				$http.get('http://localhost:19358/api/v1/courses/T-427-WEPO/20141/teachers').then(function(respond){
 					$scope.evalTeachers = respond.data;
-					console.log("==QUESTINS==");
-					console.log($scope.questions);
-					console.log("==TEACHERS==");
-					console.log($scope.evalTeachers);
-					
+	
+					$scope.tempQuest = [];
 					for(var k = 0; k < $scope.evalTeachers.length; k++) {
-						console.log("--Ytri lykkja--");
-						console.log($scope.questions[$scope.questions.length-1]);
+
 						for (var i = 0; i < $scope.evaluation.TeacherQuestions.length; i++) {
-							$scope.evaluation.TeacherQuestions[i].qType = "Teacher";
-							$scope.evaluation.TeacherQuestions[i].Name = $scope.evalTeachers[k].FullName;
-							$scope.questions.push($scope.evaluation.TeacherQuestions[i]);
-						
-							console.log("<--SSN-->");
-							console.log($scope.questions[$scope.questions.length-1].SSN);
-							console.log("teacher-->");
-							console.log($scope.evalTeachers[k].FullName);
+							$scope.tempQuest.push({
+								Answers: $scope.evaluation.TeacherQuestions[i].Answers,
+								ID: $scope.evaluation.TeacherQuestions[i].ID,
+								ImageURL: $scope.evaluation.TeacherQuestions[i].ImageURL,
+								TextEN: $scope.evaluation.TeacherQuestions[i].TextEN,
+								TextIS: $scope.evaluation.TeacherQuestions[i].TextIS,
+								Type: $scope.evaluation.TeacherQuestions[i].Type,
+								qType: "Teacher",
+								Name: $scope.evalTeachers[k].FullName
+							});
+							
 						};
-						console.log("--EFTIR ADD--");
-						console.log($scope.questions[$scope.questions.length-1]);
-						for (var i = 0; i < $scope.evaluation.TeacherQuestions.length; i++) {								
+					
+						for (var i = $scope.evaluation.CourseQuestions.length; i < $scope.evaluation.TeacherQuestions.length + $scope.evaluation.CourseQuestions.length; i++) {								
 							$scope.TeacherAnswers[i+k*$scope.evaluation.TeacherQuestions.length] = {
-								QuestionID: $scope.evaluation.TeacherQuestions[i].ID,
+								QuestionID: $scope.evaluation.TeacherQuestions[i-$scope.evaluation.CourseQuestions.length].ID,
 								TeacherSSN: $scope.evalTeachers[k].SSN,
 								Value: []
 							};
 						}
 						
 					};
-					console.log($scope.questions);
 
+					for(var i = 0; i < $scope.tempQuest.length; i++){
+						$scope.questions.push($scope.tempQuest[i]);
+					}
+					
 				});
-
-
 			});
 			
 			$scope.TurnIn = function(){
 				var answers = [];
 				var temparr = [];
+
 				for (var i = 0; i < $scope.CourseAnswers.length; i++) {
 					if($scope.CourseAnswers[i].Value instanceof Array) {
+<<<<<<< HEAD
+						temparr = $scope.CourseAnswers[i];
+						for(var j = 0; j < temparr.Value.length; j++) {
+							if(temparr.Value[j]) {
+								answers.push({
+										QuestionID: temparr.QuestionID,
+										TeacherSSN: null,
+										Value: j
+								});
+=======
 							temparr = $scope.CourseAnswers[i].Value;
 						$scope.CourseAnswers[i].Value.toString();
 						$scope.CourseAnswers[i].Value = "";
 						for(var j = 0; j < temparr.length; j++) {
 							if(temparr[j]) {
 								$scope.CourseAnswers[i].Value += j + ","
+>>>>>>> 7541f6f0b779c70f9a95a1d60b5117537ae66596
 							}
 						}
 
-						if($scope.CourseAnswers[i].Value.length > 0)
-						{
-							$scope.CourseAnswers[i].Value = $scope.CourseAnswers[i].Value.substring(0, $scope.CourseAnswers[i].Value.length-1);
-						}
-
 					}
-					answers.push($scope.CourseAnswers[i]);
+					else {
+						answers.push($scope.CourseAnswers[i]);
+					}
 				}
-				for (var i = 0; i < $scope.TeacherAnswers.length; i++) {
+
+				for (var i = $scope.CourseAnswers.length; i < $scope.TeacherAnswers.length; i++) {
+				
 					if($scope.TeacherAnswers[i].Value instanceof Array) {
-						temparr = $scope.TeacherAnswers[i].Value;
+						temparr = $scope.TeacherAnswers[i];
 						for(var j = 0; j < $scope.TeacherAnswers[i].Value.length; j++) {
-							if(temparr[j]) {
+							if(temparr.Value[j]) {
 								answers.push({
-										QuestionID: $scope.TeacherAnswers[i].ID,
-										TeacherSSN: $scope.TeacherAnswers[i].TeacherSSN,
+										QuestionID: temparr.QuestionID,
+										TeacherSSN: temparr.TeacherSSN,
 										Value: j
 								});
 
@@ -105,16 +115,17 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 					}
 				}
 				
-					
+						
 				$http.post('http://localhost:19358/api/v1/courses/T-427-WEPO/20141/evaluations/' + $routeParams.evaluationID, answers).then(function(respond) {
 					if(respond.status === 204) {
+						alert("Svör þín hafa verið vistuð");
 						$location.path("/home")
 					}
 					else {
 						alert("ERROR: " + respond.status);
 					}
 				});
-
+				
 			}
 			
 
