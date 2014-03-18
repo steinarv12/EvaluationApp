@@ -13,4 +13,4 @@ app.factory("UserFactory", function() {
 		return obj.Role == "admin";
 	}
 	return obj;
-});
+});	
