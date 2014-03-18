@@ -1,3 +1,4 @@
+<button ng-click="back()"> til baka </button>
 <h1>{{ evaluation.TitleIS }}</h1>
 <span>{{ evaluation.IntroTextIS }}</span>
 
@@ -30,7 +31,7 @@
 	</div>
 	<h2>Spurningar um kennara</h2>
 	<div ng-repeat="question in questions track by $index" ng-if="question.qType == 'Teacher'">
-			<p>Spurning um {{ question.Name }} {{ $index }}</p>
+			<p>Spurning um {{ question.Name }}</p>
 			<div ng-show="question.Type == 'multiple'">
 				<h3>{{ question.TextIS }}</h3>
 				<p>Svarmöguleikar:</p>

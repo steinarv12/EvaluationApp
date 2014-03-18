@@ -46,33 +46,15 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 
 					if($scope.evalAns.Questions !== undefined) {
 						$scope.noResult = false;
-						$scope.showTextQuestions = [];
+						$scope.showTextQuestion = [];
 						for(var i = 0; i < $scope.evalAns.Questions.length; i++) {
-							$scope.showTextQuestions[i] = false;
+							$scope.showTextQuestion[i] = false;
 						}
 
 						console.log($scope.evalAns);
 						console.log($scope.evalAns.Questions);
 						console.log($scope.evalTemp);
 
-						
-						/*$scope.evalAns.Questions.forEach(function(entry) {
-							
-
-							if(entry.Type !== "text"){
-								answers = 0;
-								for(var i =0; i < entry.Result.length; i++) {
-									answers = answers + entry.Result[i].Count;
-								}
-								entry.totalAnswers = answers;
-								for(var i =0; i < entry.Result.length; i++) {
-									entry.Result[i].;
-								}
-							}
-							else {
-								entry.totalAnswers = 0;
-							}
-						})*/
 					}
 					else{
 						$scope.noResult = true;
@@ -80,10 +62,17 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 					
 				});
 			}
+			$scope.back = function() {
+				if($routeParams.resultID === undefined){
+					$location.path("/home");
+				}
+				else{
+					$location.path("/result");
+				}
+			
+			}
 		}
 		else {
-			
-			alert("rdrctg u!");
 			$location.path("/");
 		}
 

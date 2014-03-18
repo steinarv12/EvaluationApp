@@ -1,3 +1,4 @@
+<button ng-click="back()"> til baka </button>
 <div ng-show="view">
 	<h2>Evaluation niðurstöður</h2>
 	<h3>Óoppnaðar</h3>
@@ -30,7 +31,7 @@
 		<h2>{{ evalAns.CourseNameIS }}</h2>
 		<p>{{ evalAns.CourseID }}</p>
 		<h3>{{ evalTemp.TemplateTitleIS }}</h3>
-		<ul ng-repeat="question in evalAns.Questions">
+		<ul ng-repeat="question in evalAns.Questions track by $index">
 			<li>Spurning {{ question.QuestionID }}: {{ question.TextIS }} <br>
 
 			<div ng-if="question.TeacherSSN != null">
@@ -58,6 +59,7 @@
 			</table>
 
 			<div ng-if="question.Type == 'text'">
+				<p>Textaspurning</p>
 				<div ng-show="showTextQuestion[$index]">
 					<ul>
 						<li ng-repeat="ans in question.TextResults">{{ ans }}</li>

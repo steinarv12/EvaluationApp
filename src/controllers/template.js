@@ -39,24 +39,7 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 					CourseQuestions: [],
 					TeacherQuestions: []
 				};
-/*
-				$scope.evaluation.CourseQuestions.push({
-					ID: $scope.evaluation.CourseQuestions.length,
-					TextIS: "Spurning",
-					TextEN: "Question",
-					ImageURL: "",
-					Type: "single",
-					Answers: []
-				});
 
-				$scope.evaluation.CourseQuestions.Answers.push({
-							ID: $scope.evaluation.CourseQuestions.Answers.length,
-							TextIS: "Svar",
-							TextEN: "Answer",
-							ImageURL: "",
-							Weight: 0
-						});
-*/
 				console.log($scope.evaluation);
 			}
 			else {
@@ -78,6 +61,16 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 						}
 				question.Answers.push(answerObj);
 
+			}
+
+			$scope.back = function() {
+				if($routeParams.templateID === undefined){
+					$location.path("/home");
+				}
+				else{
+					$location.path("/templates");
+				}
+			
 			}
 
 			$scope.addCourseQuestion = function() {
