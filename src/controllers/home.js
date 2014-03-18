@@ -3,7 +3,6 @@ app.controller("HomeController", ["$scope", "ApiFactory", "$http", "$window", "$
 		
 		if($window.sessionStorage.token !== undefined) {
 			$scope.admin = UserFactory.isAdmin();
-			$scope.tests = "tests";
 			$scope.evaluations = [];
 			$scope.areOpen = [];
 			$scope.templates = [];

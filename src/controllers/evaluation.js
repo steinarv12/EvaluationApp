@@ -69,7 +69,7 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 				var temparr = [];
 				for (var i = 0; i < $scope.CourseAnswers.length; i++) {
 					if($scope.CourseAnswers[i].Value instanceof Array) {
-						temparr = $scope.CourseAnswers[i].Value;
+							temparr = $scope.CourseAnswers[i].Value;
 						$scope.CourseAnswers[i].Value.toString();
 						$scope.CourseAnswers[i].Value = "";
 						for(var j = 0; j < temparr.length; j++) {

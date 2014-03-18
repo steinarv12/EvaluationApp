@@ -37,11 +37,21 @@ describe("loginCtrl tests", function() {
     });
 
     it("Should be able to to login and be redirected home", function() {
-    	expect($scope.foo).toBe("Hello");
         $scope.logIn();
         $httpBackend.when('POST', 'http://localhost:19358/api/v1/login').respond({token: "xxx", Data: {Status: 200}});
-        //expect($location.path).toBe("/home");
+        
         $httpBackend.expectPOST('http://localhost:19358/api/v1/login');
         $httpBackend.flush();
+        expect($location.path()).toBe("/home");
     });
+
+    it("Should not be able to log in with an error status", function(){
+        $httpBackend.when('POST', 'http://localhost:19358/api/v1/login').respond({Status: 500});
+        $scope.logIn();
+        
+        
+        $httpBackend.expectPOST('http://localhost:19358/api/v1/login');
+        $httpBackend.flush();
+        expect($window.sessionStorage.token).toBe("undefined");
+    })
 })
