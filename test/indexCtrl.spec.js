@@ -42,7 +42,7 @@ describe("indexCtrl tests", function() {
         var tock = $scope.date;
         $scope.tick();
         expect(tock).toBeDefined();
-
+        $timeout.flush(2000);
         waitsFor(function() {
             return $scope.date != tock;
         }, "Time should have passed", 5000);
