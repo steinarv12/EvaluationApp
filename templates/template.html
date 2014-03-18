@@ -1,10 +1,10 @@
 <div ng-show="view">
-	<h4>Old templates</h4>
+	<h4>Gömul templates</h4>
 	<ul>
 		<li ng-repeat="template in templates track by $index">
 			<p ng-click="templShow[template.ID] = !templShow[template.ID]">{{ template.TitleIS }}</p>
 			<div class="slideDiv" data-slide-toggle="templShow[template.ID]" data-slide-toggle-duration="200" >
-				<a ng-href="#/templates/{{ template.ID }}">Breyta</a>
+				<a ng-href="#/templates/{{ template.ID }}">Skoða</a>
 				<a href="" ng-click="hideBool = true">Nota template</a>
 				<div class="overlay" ng-show="hideBool"></div>
 				<div class="dasModel" ng-show="hideBool">
@@ -19,69 +19,49 @@
 		</li>
 	</ul>
 	<button ng-click="newTemplate()">Nýtt Template</button>
-	<div>
-		<div>Veldu Opnunartíma </br>
-			fuck you didnt work!
-		</div>
-		<div>
-			Veldu Lokunartíma </br>
-			fuck you didnt work!
-		</div>
-	</div>
+
 </div>
 
 <div ng-hide="view">
 
 	<h1>{{ evaluation.TitleIS }}</h1>
-	<input ng-model="evaluation.TitleIS" ng-show="new" placeholder="Titillinn á kennslumatinu" class="form-control">
+	
 
-	<p>{{ evaluation.TitleEN }}</p>
-	<input ng-model="evaluation.TitleEN" ng-show="new" placeholder="Enskur titilli á kennslumatinu" class="form-control">
+	<!--p>{{ evaluation.TitleEN }}</p-->
+	
 
-	<div class="form-group">
-		<label for="textareaIntro" class="col-sm-2 control-label">Kynning</label>
-		<div class="col-sm-10">
-			<textarea ng-model="evaluation.IntroTextIS" placeholder="Íslensk kynning" class="form-control" id="textareaIntro"></textarea>
-			<textarea ng-model="evaluation.IntroTextEN" placeholder="Ensk kynning" class="form-control" id="textareaIntro"></textarea>
-		</div>
-	</div>
+	<!--div class="form-group"-->
+		<!--label for="Intro" class="col-sm-2 control-label">Kynning</label-->
+		<!--div class="col-sm-10"-->
+		<h4 id="Intro">{{ evaluation.IntroTextIS }}</h4>
+			<!--textarea ng-model="evaluation.IntroTextIS" placeholder="Íslensk kynning" class="form-control" id="textareaIntro"></textarea-->
+			<!--textarea ng-model="evaluation.IntroTextEN" placeholder="Ensk kynning" class="form-control" id="textareaIntro"></textarea-->
+		<!--/div>
+	</div-->
 
 	<div>
-		<h2>Spurningar úr námskeiði</h2>
+		<h2 >Spurningar úr námskeiði</h2> <!-- laga... /etta er i midjunni for some reason -->
 
 		<div ng-repeat="question in evaluation.CourseQuestions">
 
-			<p ng-hide="new">{{ question.TextIS }}</p>
-			<input ng-model="question.TextIS" ng-show="new" class="form-control" placeholder="Texti á spurningu" />
-			<input ng-model="question.TextEN" ng-show="new" class="form-control" placeholder="Question text" />
-
-			<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
+			<p>Spurningin: {{ question.TextIS }}</p>
+			
+<!--p>{{ question.TextEN }}</p-->
+ 			<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
 				<p>Svarmöguleikar:</p>
-				<ul ng-show="new">
-					<li ng-repeat="answer in question.Answers track by $index">
-						<input ng-model="question.Answers[$index].TextIS"/>
-						<p>Vægi svars</p>
-						<input ng-model="question.Answers[$index].Weight" type="number" name="quantity" min="0" max="5">
-					</li>
-				</ul>
 
-				<div ng-hide="new">
-					<select ng-show="question.Type == 'multiple'">
-	  					<iput type="checkbox" ng-repeat="answer in question.Answers track by $index" value=$index>{{ answer }}
-					</select>
-
-					
-					<input ng-show="question.Type == 'single'" ng-repeat="answer in question.Answers track by $index" type="radio" name="answer" value="answer">{{ answer }} <br>
-				<!--todo: names for each sigle question for extration-->
-				</div>
-
-				<button class="btn btn-mini" ng-show="new" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
 				
-				<form action="" ng-show="new">
-					<input ng-model="question.Type" value="text" type="radio" name="question-type">Texti
-					<input ng-model="question.Type" value="single" type="radio" name="question-type" checked>Eitt rétt svar
-					<input ng-model="question.Type" value="multiple" type="radio" name="question-type">Mörg rétt svör
-				</form>
+			<form ng-show="question.Type == 'multiple'" ng-repeat="answer in question.Answers track by $index">
+				<input type="checkbox">{{ answer.TextIS }}<br>
+			</form>
+
+
+
+			<label ng-show="question.Type == 'single'" class="theRadio" ng-repeat="answer in question.Answers track by $index">
+				<input type="radio" name="ansC"> {{ answer.TextIS }}<br>
+			</label>
+
+				<!--todo: names for each sigle question for extration-->
 
 			</div>
 
@@ -90,44 +70,45 @@
 			</div>
 		</div>
 
-		<button class="btn btn-mini" ng-show="new" ng-click="addCourseQuestion()">Bæta við spurningu</button>
+
 
 		<h2>Spurningar um kennara</h2>
 		<div ng-repeat="question in evaluation.TeacherQuestions">
-			<p ng-hide="new">{{ question.TextIS }}</p>
-			<input ng-model="question.TextIS" ng-show="new" class="form-control" placeholder="Texti á spurningu"/>
+			<p>Spurining: {{ question.TextIS }}</p>
+			
 			<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
 				<p>Svarmöguleikar:</p>
-				<ul ng-show="new">
-					<li ng-repeat="answer in question.Answers track by $index">
-						<input ng-model="answer.TextIS"/>
-						<p>Vægi svars</p>
-						<input ng-model="answer.Weight" type="number" name="quantity" min="0" max="5">
-					</li>
-				</ul>
 				
-				<div ng-hide="new">
-					<select ng-show="question.Type == 'multiple'">
-	  					<ipnut type="checkbox" ng-repeat="answer in question.Answers track by $index" value="{{answer.TextIS}}">{{ answer.TextIS }}</input>
-					</select>
+				<div>
+					<form ng-show="question.Type == 'multiple'" ng-repeat="answer in question.Answers track by $index">
+						<input type="checkbox">{{ answer.TextIS }}<br>
+					</form>
 
-					<select ng-show="question.Type == 'single'">
-						<input ng-repeat="answer in question.Answers track by $index" type="radio" name="answer" value={{answer.TextIS}}>{{ answer.TextIS }} <br>
-					</select>	
+
+
+					<label ng-show="question.Type == 'single'" class="theRadio" ng-repeat="answer in question.Answers track by $index">
+						<input type="radio" name="ansC"> {{ answer.TextIS }}<br>
+					</label>
 				</div>
-				
-				<button class="btn btn-mini" ng-show="new" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
-				<form action="" ng-show="new">
-					<input ng-model="question.Type" value="text" type="radio" name="question-type">Texti
-					<input ng-model="question.Type" value="single" type="radio" name="question-type" checked>Eitt rétt svar
-					<input ng-model="question.Type" value="multiple" type="radio" name="question-type">Mörg rétt svör
-				</form>
+
 			</div>
 			<div ng-show="question.Type == 'text'">
-				<p>Textaspurning</p>
+				<h5>Textaspurning</h5>
 			</div>
 		</div>
-		<button class="btn btn-mini" ng-show="new" ng-click="addTeacherQuestion()">Bæta við spurningu</button>
+
 	</div>
-	<button class="btn btn-mini" ng-click="submitTemplate()">Staðfesta</button>
+<!-- koma þessu í gang, svo hann geti publishað án þess að þurfa að fara til baka
+	<a href="" ng-click="hideBool = true">Nota template</a>
+				<div class="overlay" ng-show="hideBool"></div>
+				<div class="dasModel" ng-show="hideBool">
+					Mat byrjar: <input type="date" ng-model="dates[$index].startDate" required/>
+					Klukkan: <input type="time" ng-model="dates[$index].startTime" required/>
+					Mat endar: <input type="date" ng-model="dates[$index].endDate" required/>
+					Klukkan: <input type="time" ng-model="dates[$index].endTime" required/>
+					<input type="submit" value="Birta" ng-click="submitForm(template.ID, $index); hideBool = false">
+					<a href="" ng-click="hideBool = false">X</a>
+				</div>
+			</div>
+-->
 </div>

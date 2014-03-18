@@ -1,7 +1,55 @@
 <div ng-show="view">
-	
+	<h2>Evaluation niðurstöður</h2>
+	<h3>Óoppnaðar</h3>
+	<ul>
+		<li ng-repeat="evaluation in evalNew">
+			<a ng-href="#/result/{{ evaluation.ID }}">{{ evaluation.TemplateTitleIS }}</a>
+		</li>
+	</ul>
+	<h3>Enn oppnar</h3>
+		<ul>
+		<li ng-repeat="evaluation in evalOpen">
+			<a ng-href="#/result/{{ evaluation.ID }}">{{ evaluation.TemplateTitleIS }}</a>
+		</li>
+	</ul>
+	<h3>Lokaðar</h3>
+	<ul>
+		<li ng-repeat="evaluation in evalClosed">
+			<a ng-href="#/result/{{ evaluation.ID }}">{{ evaluation.TemplateTitleIS }}</a>
+		</li>
+	</ul>
 </div>
-	<button ng-click="say('hoe')">BITCHES!</button>
-<div ng-hide="view">
 	
+<div ng-hide="view">
+<div ng-show="noResult">
+	
+	<h1>Enginn nemi hefur skilað... ennþá</h1>
+
+</div>
+	<div ng-hide="noResult">
+		<h3>{{ evalAns.TextIS }}</h3>
+		<ul ng-repeat="question in evalAns.Questions">
+			<li>Spurning {{ question.ID }}: {{ Question.TextIS }} <br>
+			<table ng-hide="question.Type == 'text'">
+				<th>
+					<td>Svör</td>
+					<td>Fjöldi sem svaraði</td>
+				</th>
+				<tr ng-repeat="ans in question">
+				  <td>{{ ans.Answer }}</td>
+				  <td>{{ ans.Count }}</td>
+				</tr>
+			</table>
+
+			<div ng-show="question.Type == 'text'">
+				<div ng-show="showTextQuestion[$index]">
+					<ul>
+						<li ng-repeat="ans in question">{{ ans }}</li>
+					</ul>
+				</div>
+				<button ng-click="showTextQuestion[$index] == true">Sýna Texta Svör</button>
+			</div>
+			</li>
+		</ul>
+	</div>
 </div>

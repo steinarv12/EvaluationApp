@@ -1,0 +1,90 @@
+<input ng-model="evaluation.TitleIS"  placeholder="Titillinn á kennslumatinu" class="form-control">
+
+<!--input ng-model="evaluation.TitleEN" placeholder="Enskur titilli á kennslumatinu" class="form-control"-->
+
+<div class="form-group">
+	<label for="textareaIntro" class="col-sm-2 control-label">Kynning</label>
+	<div class="col-sm-10">
+		<textarea ng-model="evaluation.IntroTextIS" placeholder="Íslensk kynning" class="form-control" id="textareaIntro"></textarea>
+		<!--textarea ng-model="evaluation.IntroTextEN" placeholder="Ensk kynning" class="form-control" id="textareaIntro"></textarea-->
+	</div>
+</div>
+
+
+
+<!--input ng-model="question.TextEN"  class="form-control" placeholder="Question text" /-->
+<h2>Spurningar úr námskeiði</h2>
+
+<div ng-repeat="question in evaluation.CourseQuestions">
+
+	<input ng-model="question.TextIS" class="form-control" placeholder="Texti á spurningu" />
+
+	<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
+		<p>Svarmöguleikar:</p>
+		<ul >
+			<li ng-repeat="answer in question.Answers track by $index">
+				<input ng-model="answer.TextIS"/>
+				<span>
+					<p>Vægi svars: </p>
+					<input ng-model="answer.Weight" type="number" name="quantity" min="0" max="5">
+				</span>
+			</li>
+		</ul>
+		<button class="btn btn-mini" ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
+	</div>
+
+	<div ng-show="question.Type == 'text'">
+				<p>Textaspurning</p>
+	</div>
+	
+	
+
+	<form action="" >
+		<input ng-model="question.Type" value="text" type="radio" name="question-type">Texti
+		<input ng-model="question.Type" value="single" type="radio" name="question-type" checked>Eitt rétt svar
+		<input ng-model="question.Type" value="multiple" type="radio" name="question-type">Mörg rétt svör
+	</form>
+
+	
+	
+</div>
+
+<button class="btn btn-mini" ng-click="addCourseQuestion()">Bæta við spurningu</button>
+
+<h2>Spurningar um kennara</h2>
+
+<div ng-repeat="question in evaluation.TeacherQuestions">
+
+	<input ng-model="question.TextIS"  class="form-control" placeholder="Texti á spurningu"/>
+
+	<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
+		<p>Svarmöguleikar:</p>
+		<ul>
+			<li ng-repeat="answer in question.Answers track by $index">
+				<input ng-model="answer.TextIS"/>
+				<span>
+					<p>Vægi svars: </p>
+					<input ng-model="answer.Weight" type="number" name="quantity"  min="0" max="5">
+				</span>
+			</li>
+		</ul>
+
+		<button class="btn btn-mini"  ng-click="addAnswer(question)">Bæta við svarmöguleika</button>
+	</div>	
+	<div ng-show="question.Type == 'text'">
+		<p>Textaspurning</p>
+	</div>
+
+	<form action="" >
+		<input ng-model="question.Type" value="text" type="radio" name="question-type">Texti
+		<input ng-model="question.Type" value="single" type="radio" name="question-type" checked>Eitt rétt svar
+		<input ng-model="question.Type" value="multiple" type="radio" name="question-type">Mörg rétt svör
+	</form>
+	
+
+
+</div>
+
+<button class="btn btn-mini" ng-click="addTeacherQuestion()">Bæta við spurningu</button>
+</br>
+<button class="btn btn-mini" ng-click="submitTemplate()">Staðfesta</button>
