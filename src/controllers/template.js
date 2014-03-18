@@ -2,7 +2,6 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 	function($http, $scope, UserFactory, $routeParams, $window, $location) {
 		$scope.admin = UserFactory.isAdmin();
 		$scope.view = true;
-		$scope.new = false;
 		$scope.templShow = [];
 		$scope.evaluations = [];
 		$scope.dates = [];
@@ -30,9 +29,8 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 					};
 				});
 			}
-			else if($routeParams.templateID === "new"){
+			else if($routeParams.templateID === "new") {
 				$scope.view = false;
-				$scope.new = true;
 				$scope.evaluation = {
 					TitleIS: "",
 					TitleEN: "",
@@ -41,6 +39,25 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 					CourseQuestions: [],
 					TeacherQuestions: []
 				};
+/*
+				$scope.evaluation.CourseQuestions.push({
+					ID: $scope.evaluation.CourseQuestions.length,
+					TextIS: "Spurning",
+					TextEN: "Question",
+					ImageURL: "",
+					Type: "single",
+					Answers: []
+				});
+
+				$scope.evaluation.CourseQuestions.Answers.push({
+							ID: $scope.evaluation.CourseQuestions.Answers.length,
+							TextIS: "Svar",
+							TextEN: "Answer",
+							ImageURL: "",
+							Weight: 0
+						});
+*/
+				console.log($scope.evaluation);
 			}
 			else {
 				$scope.view = false;
@@ -75,13 +92,12 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 			}
 
 			$scope.submitTemplate = function() {
-				console.log("the template submitted:");
-				console.log($scope.evaluation);
+				$scope.evaluation.IntroTextEn = "Hello";
+				$scope.evaluation.TitleEN = "Hola";
 				$http.post('http://localhost:19358/api/v1/evaluationtemplates', $scope.evaluation).then(function(respond) {
 					if(respond.status === 204)
 					{
-						console.log("Template was Created TODO:message");
-						console.log(respond);
+						alert("Template Was Created Successfully!");
 						$location.path("/templates");
 					}
 					else {
@@ -125,7 +141,7 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 			}
 
 			$scope.newTemplate = function() {
-				$location.path("/templates/new");
+				$location.path("/templates/n/new");
 			}
 		}
 		else{
