@@ -69,6 +69,7 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 
 				for (var i = 0; i < $scope.CourseAnswers.length; i++) {
 					if($scope.CourseAnswers[i].Value instanceof Array) {
+<<<<<<< HEAD
 						temparr = $scope.CourseAnswers[i];
 						for(var j = 0; j < temparr.Value.length; j++) {
 							if(temparr.Value[j]) {
@@ -77,6 +78,14 @@ app.controller("EvaluationController", ["$scope", "UserFactory", "$routeParams",
 										TeacherSSN: null,
 										Value: j
 								});
+=======
+							temparr = $scope.CourseAnswers[i].Value;
+						$scope.CourseAnswers[i].Value.toString();
+						$scope.CourseAnswers[i].Value = "";
+						for(var j = 0; j < temparr.length; j++) {
+							if(temparr[j]) {
+								$scope.CourseAnswers[i].Value += j + ","
+>>>>>>> 7541f6f0b779c70f9a95a1d60b5117537ae66596
 							}
 						}
 

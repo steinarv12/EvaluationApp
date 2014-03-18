@@ -3,7 +3,6 @@ app.controller("loginCtrl", [ "$scope", "$http", "$location", "$window", "UserFa
 
 	$scope.userName;
 	$scope.passWord;
-	$scope.foo = "Hello";
 	$scope.uFactory = UserFactory;
 
 	$scope.logIn = function() {
