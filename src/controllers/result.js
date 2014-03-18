@@ -33,22 +33,29 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 					}
 				});
 			}
-			else{
+			else{	
+				$http.get('http://localhost:19358/api/v1/courses/T-427-WEPO/20141/teachers').then(function(respond){
+					$scope.evalTeachers = respond.data;
+				});
 				
 				$scope.view = false;
 				var answers = 0;
 				$http.get('http://localhost:19358/api/v1/evaluations/' + $routeParams.resultID, config).then(function(respond) {
-					$scope.evalAns = respond.data;
-					console.log("The result of evaluation: ");
-					console.log(respond.data);
-					console.log("The question object: ");
-					console.log($scope.evalAns.Questions);
+					$scope.evalAns = respond.data.Courses[0];
+					$scope.evalTemp = respond.data;
+
 					if($scope.evalAns.Questions !== undefined) {
 						$scope.noResult = false;
 						$scope.showTextQuestions = [];
 						for(var i = 0; i < $scope.evalAns.Questions.length; i++) {
-									$scope.showTextQuestions[i] = false;
-								}
+							$scope.showTextQuestions[i] = false;
+						}
+
+						console.log($scope.evalAns);
+						console.log($scope.evalAns.Questions);
+						console.log($scope.evalTemp);
+
+						
 						/*$scope.evalAns.Questions.forEach(function(entry) {
 							
 

@@ -27,27 +27,43 @@
 
 </div>
 	<div ng-hide="noResult">
-		<h3>{{ evalAns.TextIS }}</h3>
+		<h2>{{ evalAns.CourseNameIS }}</h2>
+		<p>{{ evalAns.CourseID }}</p>
+		<h3>{{ evalTemp.TemplateTitleIS }}</h3>
 		<ul ng-repeat="question in evalAns.Questions">
-			<li>Spurning {{ question.ID }}: {{ Question.TextIS }} <br>
-			<table ng-hide="question.Type == 'text'">
-				<th>
-					<td>Svör</td>
-					<td>Fjöldi sem svaraði</td>
-				</th>
-				<tr ng-repeat="ans in question">
-				  <td>{{ ans.Answer }}</td>
-				  <td>{{ ans.Count }}</td>
-				</tr>
+			<li>Spurning {{ question.QuestionID }}: {{ question.TextIS }} <br>
+
+			<div ng-if="question.TeacherSSN != null">
+				<p ng-repeat="teacher in evalTeachers" ng-if="teacher.SSN == question.TeacherSSN">Spurning um {{ teacher.FullName }}</p>
+			</div>
+			<table ng-if="question.Type != 'text'">
+				<caption ng-if="question.Type == 'multiple'">Mörg rétt svör</caption>
+				<caption ng-if="question.Type == 'single'">Eitt rétt svar</caption>
+				<thead>
+					<tr>
+						<th>Nr.</th>
+						<th>Svör</th>
+						<th>Fjöldi sem svaraði</th>
+						<th>Gildi svars</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="ans in question.OptionsResults">
+					  <td>{{ ans.Answer }}</td>
+					  <td>{{ ans.AnswerTextIS }}</td>
+					  <td>{{ ans.Count }}</td>
+					  <td>{{ ans.Weight }}</td>
+					</tr>
+				</tbody>
 			</table>
 
-			<div ng-show="question.Type == 'text'">
+			<div ng-if="question.Type == 'text'">
 				<div ng-show="showTextQuestion[$index]">
 					<ul>
-						<li ng-repeat="ans in question">{{ ans }}</li>
+						<li ng-repeat="ans in question.TextResults">{{ ans }}</li>
 					</ul>
 				</div>
-				<button ng-click="showTextQuestion[$index] == true">Sýna Texta Svör</button>
+				<button ng-click="showTextQuestion[$index] = !showTextQuestion[$index]" >Sýna Texta Svör</button>
 			</div>
 			</li>
 		</ul>
