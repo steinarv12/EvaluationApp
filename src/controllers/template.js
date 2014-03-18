@@ -10,7 +10,12 @@ app.controller("TemplateController", ["$http", "$scope", "UserFactory", "$routeP
 		if($window.sessionStorage.token !== undefined) {
 			
 			if($routeParams.templateID === undefined) {
-				$http.get('http://localhost:19358/api/v1/evaluationtemplates').then(function(respond) {
+				var config = {headers:  {
+				        'Authorization': $http.defaults.headers.common.Authorization,
+				        'Accept': 'application/json'
+				    }
+				};
+				$http.get('http://localhost:19358/api/v1/evaluationtemplates', config).then(function(respond) {
 					$scope.view = true;
 					$scope.templates = respond.data;
 					for (var i = $scope.templates.length - 1; i >= 0; i--) {

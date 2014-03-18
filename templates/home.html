@@ -1,9 +1,12 @@
 <h1>Evaluations</h1>
-<ul>
-	<li ng-repeat="evaluation in evaluations">
-		<a ng-href="#/evaluation/{{ evaluation.ID }}">{{ evaluation.TitleIS }}</a>
-	</li>
-</ul>
+
+<div>
+	<ul>
+		<li ng-repeat="evaluation in evaluations track by $index">
+			<a ng-show="areOpen[$index]" ng-href="#/evaluation/{{ evaluation.ID }}">{{ evaluation.TemplateTitleIS }}</a>
+		</li>
+	</ul>
+</div>
 
 <div class="container-fluid">
 	<div class="row-fluid">

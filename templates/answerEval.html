@@ -3,70 +3,57 @@
 
 <div>
 	<h2>Spurningar úr námskeiði</h2>
-	<div ng-repeat="question in evaluation.CourseQuestions">
+	<div ng-repeat="question in evaluation.CourseQuestions track by $index">
 		<div ng-show="question.Type == 'multiple'">
+			<h3>{{ question.TextIS }}</h3>
 			<p>Svarmöguleikar:</p>
-			<ul>
-				<li ng-repeat="answer in question.Answers track by $index">
-					<form action="">
-					<input type="checkbox" name="answer" value="$index">{{ answer }}<br>
-					</form>
-				</li>
-			</ul>
+				<form ng-repeat="answer in question.Answers track by $index">
+				<input type="checkbox" ng-model="CourseAnswers[$parent.$index].Value[$index]">{{ answer.TextIS }}<br>
+				</form>
+				<a href="" ng-click="SaveCAns($index, question.ID)">Vista svar</a>
 		</div>
 		<div ng-show="question.Type == 'single'">
+			<h3>{{ question.TextIS }}</h3>
 			<p>Svarmöguleikar:</p>
-			<ul>
-				<li ng-repeat="answer in question.Answers track by $index">
-					<form action="">
-					<input type="radio" name="answer" value="$index">{{ answer }}<br>
-					</form>
-				</li>
-			</ul>
+				<label class="theRadio" ng-repeat="answer in question.Answers track by $index">
+				<input type="radio" name="ansC" ng-model="CourseAnswers[$parent.$index].Value[0]" ng-value="$index">{{ answer.TextIS }}<br>
+				</label>
+				<a href="" ng-click="SaveCAns($index, question.ID)">Vista svar</a>
 		</div>
 		<div ng-show="question.Type == 'text'">
+			<h3>{{ question.TextIS }}</h3>
 			<p>Svarmöguleikar:</p>
-			<ul>
-				<li ng-repeat="answer in question.Answers track by $index">
-					<form action="">
-					<input type="text" name="answer" ng-model="answer">
-					</form>
-				</li>
-			</ul>
+			<form action="">
+			<input type="text" ng-model="CourseAnswers[$index].Value[0]">
+			</form>
+			<a href="" ng-click="SaveCAns($index, question.ID)">Vista svar</a>
 		</div>
-	</div>
-	<h2>Spurningar um kennara</h2>
-	<div ng-repeat="question in evaluation.CourseQuestions">
+		</div>
+	<div ng-repeat="question in evaluation.TeacherQuestions track by $index">
+		<h2>Spurningar um kennara</h2>
 		<div ng-show="question.Type == 'multiple'">
+			<h3>{{ question.TextIS }}</h3>
 			<p>Svarmöguleikar:</p>
-			<ul>
-				<li ng-repeat="answer in question.Answers track by $index">
-					<form action="">
-					<input type="checkbox" name="answer" value="$index">{{ answer }}<br>
-					</form>
-				</li>
-			</ul>
+			<form ng-repeat="answer in question.Answers track by $index">
+			<input type="checkbox" ng-model="TeacherAnswers[$parent.$index].Value[$index]">{{ answer.TextIS }}<br>
+			</form>
+			<a href="" ng-click="SaveTAns($index, question.ID)">Vista svar</a>
 		</div>
 		<div ng-show="question.Type == 'single'">
+			<h3>{{ question.TextIS }}</h3>
 			<p>Svarmöguleikar:</p>
-			<ul>
-				<li ng-repeat="answer in question.Answers track by $index">
-					<form action="">
-					<input type="radio" name="answer" value="$index">{{ answer }}<br>
-					</form>
-				</li>
-			</ul>
+			<label class="theRadio" ng-repeat="answer in question.Answers track by $index">
+			<input type="radio" name="ansT" ng-model="TeacherAnswers[$parent.$index].Value[0]">{{ answer.TextIS }}
+			</label>
+			<a href="" ng-click="SaveTAns($index, question.ID)" >Vista svar</a>
 		</div>
 		<div ng-show="question.Type == 'text'">
-			<p>Svarmöguleikar:</p>
-			<ul>
-				<li ng-repeat="answer in question.Answers track by $index">
-					<form action="">
-					<input type="text" name="answer" ng-model="answer">
-					</form>
-				</li>
-			</ul>
+			<h3>{{ question.TextIS }}</h3>
+			<form action="">
+			<input type="textbox" ng-model="TeacherAnswers[$index].Value[0]">
+			</form>
+			<a href="" ng-click="SaveTAns($index, question.ID)">Vista svar</a>
 		</div>
 	</div>
 </div>
-<button ng-click="TurnIn()">Skila mati</button>
+<button ng-click="TurnIn()">Skila</button>

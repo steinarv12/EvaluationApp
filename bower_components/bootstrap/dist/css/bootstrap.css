@@ -5834,3 +5834,7 @@ button.close {
 .slideDiv {
   display: none;
 }
+
+.theRadio {
+  display: block;
+}
