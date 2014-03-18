@@ -16,7 +16,7 @@ app.controller("loginCtrl", [ "$scope", "$http", "$location", "$window", "UserFa
 				$location.path("/home");
 			} else {
 				delete $window.sessionStorage.token;
-				console.log("LogIn failed"); //TO DO: Warning of frailer
+				alert("Vitlaust lykilorð eða notendanafn"); //TO DO: Warning of frailer
 			}
 		});
 	};

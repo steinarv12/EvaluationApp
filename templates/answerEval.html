@@ -29,31 +29,33 @@
 		</div>
 	</div>
 	<h2>Spurningar um kennara</h2>
-	<div ng-repeat="question in evaluation.TeacherQuestions track by $index">
-	
-		<div ng-show="question.Type == 'multiple'">
-			<h3>{{ question.TextIS }}</h3>
-			<p>Svarmöguleikar:</p>
-			<form ng-repeat="answer in question.Answers track by $index">
-			<input type="checkbox" ng-model="TeacherAnswers[$parent.$index].Value[$index]">{{ answer.TextIS }}<br>
-			</form>
+	<div ng-repeat="question in questions track by $index" ng-if="question.qType == 'Teacher'">
+			<p>Spurning um {{ question.Name }} {{ $index }}</p>
+			<div ng-show="question.Type == 'multiple'">
+				<h3>{{ question.TextIS }}</h3>
+				<p>Svarmöguleikar:</p>
+				<form ng-repeat="answer in question.Answers track by $index">
+				<input type="checkbox" ng-model="TeacherAnswers[$parent.$index].Value[$index]">{{ answer.TextIS }}<br>
+				</form>
 
-		</div>
-		<div ng-show="question.Type == 'single'">
-			<h3>{{ question.TextIS }}</h3>
-			<p>Svarmöguleikar:</p>
-			<label class="theRadio" ng-repeat="answer in question.Answers track by $index">
-			<input type="radio" name="ansT" ng-model="TeacherAnswers[$parent.$index].Value" ng-value="$index">{{ answer.TextIS }}
-			</label>
+			</div>
+			<div ng-show="question.Type == 'single'">
+				<h3>{{ question.TextIS }}</h3>
+				<p>Svarmöguleikar:</p>
+				<label class="theRadio" ng-repeat="answer in question.Answers track by $index">
+				<input type="radio" name="ansT" ng-model="TeacherAnswers[$parent.$index].Value" ng-value="$index">{{ answer.TextIS }}
+				</label>
 
-		</div>
-		<div ng-show="question.Type == 'text'">
-			<h3>{{ question.TextIS }}</h3>
-			<form action="">
-			<input type="textbox" ng-model="TeacherAnswers[$index].Value">
-			</form>
+			</div>
+			<div ng-show="question.Type == 'text'">
+				<h3>{{ question.TextIS }}</h3>
+				<form action="">
+				<input type="textbox" ng-model="TeacherAnswers[$index].Value">
+				</form>
 
+			</div>
 		</div>
 	</div>
+
 </div>
 <button ng-click="TurnIn()">Skila</button>

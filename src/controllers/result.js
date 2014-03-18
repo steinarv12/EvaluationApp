@@ -6,7 +6,11 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 		$scope.noResult = false;
 		$scope.routeParm = $routeParams.resultID;
 		if($window.sessionStorage.token !== undefined) {
-			
+				var config = {headers:  {
+			        'Authorization': $http.defaults.headers.common.Authorization,
+			        'Accept': 'application/json'
+			    }
+			};
 			if($routeParams.resultID === undefined) {
 				
 				$http.get('http://localhost:19358/api/v1/evaluations').then(function(respond) {
@@ -33,7 +37,7 @@ app.controller("ResultController", ["$http", "$scope", "UserFactory", "$routePar
 				
 				$scope.view = false;
 				var answers = 0;
-				$http.get('http://localhost:19358/api/v1/courses/T-427-WEPO/20141/evaluations/' + $routeParams.resultID).then(function(respond) {
+				$http.get('http://localhost:19358/api/v1/evaluations/' + $routeParams.resultID, config).then(function(respond) {
 					$scope.evalAns = respond.data;
 					console.log("The result of evaluation: ");
 					console.log(respond.data);
